@@ -37,32 +37,67 @@ class CarritoViewModel{
         
         return result
     }
-    func Update(IdAlumno : Int){
+    func Update(IdProducto : Int, cantidad : Int) -> Result{
+           
+           var result = Result()
         
-    }
+        var ventasproductos = VentaProductos()
+        
+           let context = appDelegate.persistentContainer.viewContext
+           
+        let response : NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "VentaProducto")
+           
+           response.predicate = NSPredicate(format: "idProducto = \(IdProducto)")
+        do{
+            let test = try context.fetch(response)
+            
+            let objectUpdate = test[0] as! NSManagedObject
+            objectUpdate.setValue(cantidad, forKey: "cantidad")
+            do{
+                try context.save()
+                result.Correct = true
+                //result.Correct = false
+            }catch let error{
+                result.Correct = false
+                result.ErrorMessage = error.localizedDescription
+                result.Ex = error               }
+        }catch let error{
+            result.Correct = false
+            result.ErrorMessage = error.localizedDescription
+            result.Ex = error
+        }
+        return result
+       }
+    
     func Delete(IdProducto : Int) -> Result{
-              var result = Result()
-              
-              let context = appDelegate.persistentContainer.viewContext
-              
-              let response = NSFetchRequest<NSFetchRequestResult> (entityName: "VentaProducto")
-              
-              response.predicate = NSPredicate(format: "IdProducto = %@", IdProducto)
-                      
-              do{
-                  let test = try! context.fetch(response)
-                  let objectToDelete = test[0] as! NSManagedObject
-                  context.delete(objectToDelete)
-                  do{
-                      try context.save()
-                      result.Correct = true
-                  }catch let error{
-                      result.Correct = false
-                      result.ErrorMessage = error.localizedDescription
-                      result.Ex = error               }
-              }
-              return result
-          }
+      var result = Result()
+        
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let response = NSFetchRequest<NSFetchRequestResult> (entityName: "VentaProducto")
+        
+        response.predicate = NSPredicate(format: "idProducto = \( IdProducto)")
+        
+        do{
+            let test = try context.fetch(response)
+            
+            let objectToDelete = test[0] as! NSManagedObject
+            context.delete(objectToDelete)
+            do{
+                try context.save()
+               result.Correct = true
+                //result.Correct = false
+            }catch let error{
+                result.Correct = false
+                result.ErrorMessage = error.localizedDescription
+                result.Ex = error               }
+        }catch let error{
+            result.Correct = false
+            result.ErrorMessage = error.localizedDescription
+            result.Ex = error
+        }
+        return result
+    }
     func GetById(IdProducto : Int) -> Result{
         var result = Result()
         let context = appDelegate.persistentContainer.viewContext

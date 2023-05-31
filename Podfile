@@ -19,5 +19,4 @@ target 'JMontesEccomerceVenta' do
   # Pods for JMontesEccomerceVenta
   pod 'SwipeCellKit'
   pod 'IQKeyboardManager'
-
 end

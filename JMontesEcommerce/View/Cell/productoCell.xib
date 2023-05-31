@@ -89,7 +89,7 @@
                 <outlet property="lblNombre" destination="SVM-oE-Pfq" id="rsz-kF-Z5G"/>
                 <outlet property="lblPrecio" destination="qmH-kM-pWg" id="YwW-Na-YtL"/>
             </connections>
-            <point key="canvasLocation" x="174.80916030534351" y="35.91549295774648"/>
+            <point key="canvasLocation" x="-257" y="-226"/>
         </tableViewCell>
     </objects>
     <resources>

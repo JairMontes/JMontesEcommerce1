@@ -11,12 +11,21 @@ import SwipeCellKit
 class CarritoCollectionCell: SwipeTableViewCell{
 
     
-    @IBOutlet weak var lblNombre: UILabel!
+//    @IBOutlet weak var lblNombre: UILabel!
+//
+//    @IBOutlet weak var lblSubtotal: UILabel!
+//    @IBOutlet weak var Stepper: UIStepper!
+//    @IBOutlet weak var ImageView: UIImageView!
+//    @IBOutlet weak var lblCantidad: UILabel!
     
-    @IBOutlet weak var lblSubtotal: UILabel!
-    @IBOutlet weak var Stepper: UIStepper!
-    @IBOutlet weak var ImageView: UIImageView!
+    @IBOutlet weak var lblNombre: UILabel!
     @IBOutlet weak var lblCantidad: UILabel!
+    @IBOutlet weak var Stepper: UIStepper!
+    @IBOutlet weak var lblSubtotal: UILabel!
+    @IBOutlet weak var ImageView: UIImageView!
+    
+    
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

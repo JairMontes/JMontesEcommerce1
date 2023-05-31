@@ -9,12 +9,15 @@ import UIKit
 import SwipeCellKit
 
 class CarritoGetAllController: UITableViewController {
-    
-    let carritoViewModel = CarritoViewModel ()
+        
+        var total : Double = 0
+        var subtotal : Int = 0
+        let carritoViewModel = CarritoViewModel ()
         var producto : [Producto] = []
         var productosventas : [VentaProductos] = []
         
-        override func viewWillAppear(_ animated: Bool) {
+    
+    override func viewWillAppear(_ animated: Bool) {
             
             tableView.reloadData()
             UpdateUI()
@@ -48,6 +51,11 @@ class CarritoGetAllController: UITableViewController {
             
             cell.lblNombre.text = productosventas[indexPath.row].producto?.Nombre
             cell.lblCantidad.text = productosventas[indexPath.row].cantidad?.description
+            cell.lblSubtotal.text = productosventas[indexPath.row].producto?.Precio?.description
+            
+            //subtotal = productosventas[indexPath.row].cantidad! * (productosventas[indexPath.row].producto?.Precio ?? 0)
+            cell.lblSubtotal.text = String (subtotal)
+            
             
             if productosventas[indexPath.row].producto?.Imagen == "" || productosventas[indexPath.row].producto?.Imagen == nil {
                 cell.ImageView.image = UIImage(named: "DefaultProducto")
@@ -60,6 +68,11 @@ class CarritoGetAllController: UITableViewController {
                     cell.ImageView.image = UIImage(data: newImageData)
                 }
             }
+            
+            cell.Stepper.value = Double(productosventas[indexPath.row].cantidad!)
+            cell.Stepper.tag = indexPath.row
+            cell.Stepper.addTarget(self, action: #selector(Steeperaction), for: .touchUpInside)
+            
             
             return cell
         }
@@ -75,18 +88,29 @@ class CarritoGetAllController: UITableViewController {
             if orientation == .right{
                 let deleteAction = SwipeAction(style: .destructive, title: "Delete") { [self] action, indexPath in
                     
+                    let result =  carritoViewModel.Delete(IdProducto: self.productosventas[indexPath.row].producto!.IdProducto!)
+
+                                    if result.Correct! {
+                                        let alert = UIAlertController(title: "Mensaje", message: "Producto eliminado del carrito", preferredStyle: .alert)
+                                        let action = UIAlertAction(title: "Aceptar", style: .default)
+                                        alert.addAction(action)
+                                        self.present(alert, animated: true, completion: nil)
+                                        self.UpdateUI()
+                                       
+                                    }else{
+                                        let alert = UIAlertController(title: "Mensaje", message: "No se pudo eliminar", preferredStyle: .alert)
+                                        let action = UIAlertAction(title: "Aceptar", style: .default)
+                                        alert.addAction(action)
+                                        self.present(alert, animated: true, completion: nil)
+                                    }
                 }
                 return [deleteAction]
             }
-            if orientation == .left {
-                let updateAction = SwipeAction(style: .default, title: "Update") { action, indexPath in
-                }
-                return [updateAction]
-            }
+
             return nil
             
-            
         }
+      
         
         func UpdateUI(){
             var result = carritoViewModel.GetAll()
@@ -100,4 +124,22 @@ class CarritoGetAllController: UITableViewController {
                 
             }
         }
+        
+        @objc func Steeperaction(sender: UIStepper){
+            let indexPath = IndexPath(row: sender.tag, section: 0)
+            print("sender ---> \(sender.value)")
+            if sender.value >= 1{
+                if carritoViewModel.Update(IdProducto: (productosventas[indexPath.row].producto?.IdProducto)!,cantidad: Int(sender.value)).Correct!{
+                    total = 0.0
+                    UpdateUI()
+                    print("Se actualizó")
+                }else{
+                    print("No se puede actualizar")
+                }
+            }else{
+                sender.value = 1
+                print("Ocurrio un error")
+            }
+        }
     }
+    
