@@ -130,7 +130,7 @@ class ProductoViewModel{
                     producto.IdProducto = Int(sqlite3_column_int(statement, 0))
                     producto.Imagen = String(describing: String(cString: sqlite3_column_text(statement, 1)))
                     producto.Nombre = String(describing: String(cString: sqlite3_column_text(statement, 2)))
-                    producto.Precio = String(describing: String(cString: sqlite3_column_text(statement, 3)))
+                    producto.Precio = Int(sqlite3_column_int(statement, 3))
                     producto.Descripcion = String(describing: String(cString: sqlite3_column_text(statement, 4)))
                   
                     producto.Departamento = Departamento()
@@ -165,7 +165,7 @@ class ProductoViewModel{
                     producto.IdProducto = Int(sqlite3_column_int(statement, 0))
                     producto.Imagen = String(describing: String(cString: sqlite3_column_text(statement, 1)))
                     producto.Nombre = String(describing: String(cString: sqlite3_column_text(statement, 2)))
-                    producto.Precio = String(describing: String(cString: sqlite3_column_text(statement, 3)))
+                    producto.Precio = Int(sqlite3_column_int(statement, 3))
                     producto.Descripcion = String(describing: String(cString: sqlite3_column_text(statement, 4)))
                                     
                     producto.Departamento = Departamento()
@@ -205,7 +205,7 @@ class ProductoViewModel{
                         var producto = Producto()
                         producto.IdProducto = Int(sqlite3_column_int(statement, 0))
                         producto.Nombre = String(describing: String(cString: sqlite3_column_text(statement, 1)))
-                        producto.Precio = String(describing: String(cString: sqlite3_column_text(statement, 2)))
+                        producto.Precio = Int(sqlite3_column_int(statement, 2))
                         producto.Descripcion = String(describing: String(cString: sqlite3_column_text(statement, 3)))
                         producto.Imagen = String(describing: String(cString: sqlite3_column_text(statement, 4)))
                         
@@ -239,7 +239,7 @@ class ProductoViewModel{
                         var producto = Producto()
                         producto.IdProducto = Int(sqlite3_column_int(statement, 0))
                         producto.Nombre = String(describing: String(cString: sqlite3_column_text(statement, 1)))
-                        producto.Precio = String(describing: String(cString: sqlite3_column_text(statement, 2)))
+                        producto.Precio = Int(sqlite3_column_int(statement, 2))
                         producto.Descripcion = String(describing: String(cString: sqlite3_column_text(statement, 3)))
                         producto.Imagen = String(describing: String(cString: sqlite3_column_text(statement, 4)))
                         

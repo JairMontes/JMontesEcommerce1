@@ -10,6 +10,7 @@ import UIKit
 class AreaGetAllCollectionController: UIViewController {
     
     @IBOutlet weak var txtProducto: UITextField!
+    //@IBOutlet weak var AreaCollection1: UICollectionView!
     @IBOutlet weak var AreaCollection1: UICollectionView!
     
  var area : [Area] = []

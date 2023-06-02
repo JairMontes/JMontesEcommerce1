@@ -79,7 +79,7 @@ class ProductoGetAllCollectionController: UICollectionViewController {
         
         
         cell.lblNombre.text = producto[indexPath.row].Nombre
-        cell.lblPrecio.text = producto[indexPath.row].Precio
+        cell.lblPrecio.text = producto[indexPath.row].Precio?.description
         cell.lblDescripcion.text = producto[indexPath.row].Descripcion
         
         if producto[indexPath.row].Imagen == "" || producto[indexPath.row].Imagen == nil {

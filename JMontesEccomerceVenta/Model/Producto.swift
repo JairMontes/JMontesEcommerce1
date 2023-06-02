@@ -14,9 +14,9 @@ class Producto{  //Modelo
     var IdProducto : Int? = nil
     var Imagen :  String? = nil
     var Nombre :  String? = nil
-    var Precio :  String? = nil
+    var Precio :  Int? = nil
     var Descripcion :  String? = nil
     
-    //Propìedad de navegacion
+    //Propiedad de navegación
     var Departamento : Departamento? = nil
 }

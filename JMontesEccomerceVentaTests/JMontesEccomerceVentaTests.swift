@@ -1,14 +1,14 @@
 //
-//  JMontesEccomerceVentaTests1.swift
-//  JMontesEccomerceVentaTests1
+//  JMontesEccomerceVentaTests.swift
+//  JMontesEccomerceVentaTests
 //
-//  Created by Admin on 30/05/23.
+//  Created by Admin on 31/05/23.
 //
 
 import XCTest
-@testable import JMontesEccomerceVenta
+//@testable import JMontesEccomerceVenta
 
-final class JMontesEccomerceVentaTests1: XCTestCase {
+final class JMontesEccomerceVentaTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -19,10 +19,10 @@ final class JMontesEccomerceVentaTests1: XCTestCase {
     }
 
     func testExample() throws {
-//        let carritoViewModel = CarritoViewModel()
-//              let result = carritoViewModel.GetById(IdProducto: 8)
-//              
-//              XCTAssertTrue(result.Correct!)
+//               let carritoViewModel = CarritoViewModel()
+//                     let result = carritoViewModel.GetById(IdProducto: 8)
+//        
+//                      XCTAssertTrue(result.Correct!)
     }
 
     func testPerformanceExample() throws {

@@ -127,7 +127,7 @@ class ProductoViewController: UIViewController {
             //self.ImageView.image = acceder.Imagen
             self.txtIdProducto.text = acceder.IdProducto?.description
             self.txtNombre.text = acceder.Nombre
-            self.txtPrecio.text = acceder.Precio
+            self.txtPrecio.text = acceder.Precio?.description
             self.txtDescripcion.text = acceder.Descripcion
             self.txtDepartamento.text = acceder.Departamento?.Nombre
             
@@ -167,7 +167,7 @@ class ProductoViewController: UIViewController {
             var producto = Producto()
             
             producto.Nombre = txtNombre.text!
-            producto.Precio = txtPrecio.text!
+            producto.Precio = Int(txtPrecio.text!)
             producto.Descripcion = txtDescripcion.text!
             
             producto.Departamento = Departamento()
@@ -197,7 +197,7 @@ class ProductoViewController: UIViewController {
             
             producto.IdProducto = Int(txtIdProducto.text!) ?? 0
             producto.Nombre = txtNombre.text!
-            producto.Precio = txtPrecio.text!
+            producto.Precio = Int(txtPrecio.text!)
             producto.Descripcion = txtDescripcion.text!
             
             producto.Departamento = Departamento()

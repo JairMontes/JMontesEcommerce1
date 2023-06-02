@@ -53,7 +53,7 @@ class ProductoGetAllController: UITableViewController {
         cell.delegate = self
         
         cell.lblNombre.text = productos[indexPath.row].Nombre
-        cell.lblPrecio.text = productos[indexPath.row].Precio
+        cell.lblPrecio.text = productos[indexPath.row].Precio?.description
         cell.lblDescripcion.text = productos[indexPath.row].Descripcion
         //cell.lbldepartamento.text = productos[indexPath.row].Departamento?.IdDepartamento?.description
         

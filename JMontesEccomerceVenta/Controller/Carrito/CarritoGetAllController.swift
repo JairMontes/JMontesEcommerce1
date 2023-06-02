@@ -8,43 +8,49 @@
 import UIKit
 import SwipeCellKit
 
-class CarritoGetAllController: UITableViewController {
-        
-        var total : Double = 0
-        var subtotal : Int = 0
-        let carritoViewModel = CarritoViewModel ()
-        var producto : [Producto] = []
-        var productosventas : [VentaProductos] = []
-        
+class CarritoGetAllController: UIViewController {
+    
+    @IBOutlet weak var tableView: UITableView!
+    
+    var total : Double = 0
+    var subtotal : Int = 0
+    let carritoViewModel = CarritoViewModel ()
+    var producto : [Producto] = []
+    var productosventas : [VentaProductos] = []
+    
     
     override func viewWillAppear(_ animated: Bool) {
-            
-            tableView.reloadData()
-            UpdateUI()
-        }
         
-        override func viewDidLoad() {
-            super.viewDidLoad()
-            
-            tableView.register(UINib(nibName: "CarritoCollectionCell", bundle: .main), forCellReuseIdentifier:"carritoCell")
-            
-            UpdateUI()
-        }
+        tableView.reloadData()
+        UpdateUI()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
+        tableView.register(UINib(nibName: "CarritoCollectionCell", bundle: .main), forCellReuseIdentifier:"carritoCell")
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        UpdateUI()
+    }
+}
         // MARK: - Table view data source
+    extension CarritoGetAllController :UITableViewDataSource, UITableViewDelegate{
         
-        override func numberOfSections(in tableView: UITableView) -> Int {
+        func numberOfSections(in tableView: UITableView) -> Int {
             // #warning Incomplete implementation, return the number of sections
             return 1
         }
         
-        override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
             // #warning Incomplete implementation, return the number of rows
             return productosventas.count
             
         }
         
-        override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             let cell = tableView.dequeueReusableCell(withIdentifier: "carritoCell", for: indexPath) as! CarritoCollectionCell
             
             cell.delegate = self
@@ -53,9 +59,8 @@ class CarritoGetAllController: UITableViewController {
             cell.lblCantidad.text = productosventas[indexPath.row].cantidad?.description
             cell.lblSubtotal.text = productosventas[indexPath.row].producto?.Precio?.description
             
-            //subtotal = productosventas[indexPath.row].cantidad! * (productosventas[indexPath.row].producto?.Precio ?? 0)
+            subtotal = productosventas[indexPath.row].cantidad! * (productosventas[indexPath.row].producto?.Precio ?? 0)
             cell.lblSubtotal.text = String (subtotal)
-            
             
             if productosventas[indexPath.row].producto?.Imagen == "" || productosventas[indexPath.row].producto?.Imagen == nil {
                 cell.ImageView.image = UIImage(named: "DefaultProducto")
@@ -69,6 +74,7 @@ class CarritoGetAllController: UITableViewController {
                 }
             }
             
+            
             cell.Stepper.value = Double(productosventas[indexPath.row].cantidad!)
             cell.Stepper.tag = indexPath.row
             cell.Stepper.addTarget(self, action: #selector(Steeperaction), for: .touchUpInside)
@@ -77,10 +83,10 @@ class CarritoGetAllController: UITableViewController {
             return cell
         }
         
-        
+    }
         
 
-    }
+    
 
     extension CarritoGetAllController : SwipeTableViewCellDelegate{
         func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeCellKit.SwipeActionsOrientation) -> [SwipeCellKit.SwipeAction]? {
@@ -116,8 +122,8 @@ class CarritoGetAllController: UITableViewController {
             var result = carritoViewModel.GetAll()
             productosventas.removeAll()
             if result.Correct!{
-                for objUsuario in result.Objects!{
-                    let prod = objUsuario as! VentaProductos
+                for objProducto in result.Objects!{
+                    let prod = objProducto as! VentaProductos
                     productosventas.append(prod)
                 }
                 tableView.reloadData()
